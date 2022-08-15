@@ -1,0 +1,33 @@
+pipeline:
+    name: Build dockerfile
+    identifier: Build_dockerfile_1660300111177
+    projectIdentifier: Org01_Proj01
+    orgIdentifier: Org01
+    properties:
+        ci:
+            codebase:
+                connectorRef: account.Github
+                repoName: Yashaswishrm/dockerfile
+                build: <+input>
+    stages:
+        - stage:
+              name: Build
+              identifier: Build
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesHosted
+                      spec:
+                          identifier: k8s-hosted-infra
+                  execution:
+                      steps:
+                          - step:
+                                type: Run
+                                name: Echo Welcome Message
+                                identifier: Run
+                                spec:
+                                    connectorRef: account.harnessImage
+                                    image: alpine
+                                    shell: Sh
+                                    command: 'echo "Welcome to Harness CI" '
