@@ -1,0 +1,47 @@
+pipeline:
+    name: Org02_Proj02_pipeline02
+    identifier: Org02_Proj02_pipeline02
+    projectIdentifier: Org01_Proj01
+    orgIdentifier: Org01
+    tags: {}
+    properties:
+        ci:
+            codebase:
+                connectorRef: yash
+                repoName: firstdrone
+                build: <+input>
+    stages:
+        - stage:
+              name: SampleBuild1
+              identifier: SampleBuild1
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesHosted
+                      spec:
+                          identifier: k8s-hosted-infra
+                  execution:
+                      steps:
+                          - step:
+                                type: BuildAndPushDockerRegistry
+                                name: sample2
+                                identifier: sample2
+                                spec:
+                                    connectorRef: new_connector
+                                    repo: yashaswi11/pipelinerepo2
+                                    tags:
+                                        - version
+    notificationRules:
+        - name: newnotifiy
+          identifier: newnotifiy
+          pipelineEvents:
+              - type: AllEvents
+          notificationMethod:
+              type: Email
+              spec:
+                  userGroups: []
+                  recipients:
+                      - yashaswi870@gmail.com
+          enabled: true
