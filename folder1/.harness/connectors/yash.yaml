@@ -1,0 +1,23 @@
+connector:
+  name: yash
+  identifier: yash
+  description: ""
+  orgIdentifier: Org01
+  projectIdentifier: Org01_Proj01
+  type: Github
+  spec:
+    url: https://github.com/Yashaswishrm/
+    validationRepo: dockerfile
+    authentication:
+      type: Http
+      spec:
+        type: UsernameToken
+        spec:
+          username: Yashaswishrm
+          tokenRef: yashaswi870
+    apiAccess:
+      type: Token
+      spec:
+        tokenRef: yashaswi870
+    executeOnDelegate: false
+    type: Account
