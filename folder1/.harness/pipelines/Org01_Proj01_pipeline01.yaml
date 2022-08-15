@@ -1,0 +1,35 @@
+pipeline:
+    name: Org01_Proj01_pipeline01
+    identifier: Org01_Proj01_pipeline01
+    projectIdentifier: Org01_Proj01
+    orgIdentifier: Org01
+    tags: {}
+    properties:
+        ci:
+            codebase:
+                connectorRef: yash
+                repoName: dockerfiles-samples
+                build: <+input>
+    stages:
+        - stage:
+              name: Sample Build
+              identifier: Sample_Build
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesHosted
+                      spec:
+                          identifier: k8s-hosted-infra
+                  execution:
+                      steps:
+                          - step:
+                                type: BuildAndPushDockerRegistry
+                                name: docker-sample
+                                identifier: dockersample
+                                spec:
+                                    connectorRef: account.harnessImage
+                                    repo: yashaswi11/harnessrepo
+                                    tags:
+                                        - version
