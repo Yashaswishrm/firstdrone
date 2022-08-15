@@ -1,0 +1,60 @@
+pipeline:
+    name: Org01_Proj01_pipeline001
+    identifier: Org01_Proj01_pipeline001
+    projectIdentifier: Org01_Proj01
+    orgIdentifier: Org01
+    tags: {}
+    properties:
+        ci:
+            codebase:
+                connectorRef: yash
+                repoName: firstdrone
+                build: <+input>
+    stages:
+        - stage:
+              name: Sample Build
+              identifier: Sample_Build
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesHosted
+                      spec:
+                          identifier: k8s-hosted-infra
+                  execution:
+                      steps:
+                          - step:
+                                type: BuildAndPushDockerRegistry
+                                name: docker
+                                identifier: docker
+                                spec:
+                                    connectorRef: new_connector
+                                    repo: yashaswi11/dockerfinal
+                                    tags:
+                                        - version
+        - stage:
+              name: Approval
+              identifier: Approval
+              description: ""
+              type: Approval
+              spec:
+                  execution:
+                      steps:
+                          - step:
+                                name: Harness APP
+                                identifier: Harness_APP
+                                type: HarnessApproval
+                                timeout: 1d
+                                spec:
+                                    approvalMessage: |-
+                                        Please review the following information
+                                        and approve the pipeline progression
+                                    includePipelineExecutionHistory: true
+                                    approvers:
+                                        minimumCount: 1
+                                        disallowPipelineExecutor: false
+                                        userGroups:
+                                            - UG
+                                    approverInputs: []
+              tags: {}
