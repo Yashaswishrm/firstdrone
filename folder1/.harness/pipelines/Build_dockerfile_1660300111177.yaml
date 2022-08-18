@@ -31,6 +31,15 @@ pipeline:
                                     image: alpine
                                     shell: Sh
                                     command: 'echo "Welcome to Harness CI" '
+                          - step:
+                                type: BuildAndPushDockerRegistry
+                                name: doc
+                                identifier: doc
+                                spec:
+                                    connectorRef: new_connector
+                                    repo: yashaswi11/doc
+                                    tags:
+                                        - version
         - stage:
               name: deploy
               identifier: deploy
