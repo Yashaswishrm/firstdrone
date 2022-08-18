@@ -7,7 +7,7 @@ connector:
   type: Github
   spec:
     url: https://github.com/Yashaswishrm/
-    validationRepo: dockerfile
+    validationRepo: firstdrone
     authentication:
       type: Http
       spec:
