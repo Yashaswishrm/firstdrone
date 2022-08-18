@@ -1,0 +1,12 @@
+connector:
+  name: delegate
+  identifier: delegate
+  description: ""
+  orgIdentifier: Org01
+  projectIdentifier: Org01_Proj01
+  type: K8sCluster
+  spec:
+    credential:
+      type: InheritFromDelegate
+    delegateSelectors:
+    - trainingdelegate
